@@ -1,0 +1,138 @@
+<odoo>
+
+    <template id="portal_my_schedule_tickets_breadcrumb" name="Schedule : schedule menu entries" inherit_id="portal.portal_breadcrumbs" priority="30">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'schedule'" t-attf-class="breadcrumb-item #{'active ' if not schedule else ''}">
+                <a t-if="schedule" t-attf-href="/my/schedule?{{ keep_query() }}">Schedule</a>
+                <t t-else="">Schedule</t>
+            </li>
+            <li t-if="schedule" class="breadcrumb-item active">
+                <t t-esc="schedule.employee_id.name" t-if="schedule.employee_id.name != '/'"/>
+                <t t-else=""><em>Draft Schedule</em></t>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="portal_my_schedule_tickets" name="Schedule" inherit_id="portal.portal_my_home" priority="30">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Schedules</t>
+                <t t-set="url" t-value="'/my/schedule'"/>
+                <t t-set="placeholder_count" t-value="'schedule_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_my_schedule" name="Schedule">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Schedules</t>
+            </t>
+
+            <t t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Assigned To</th>
+                        <th>Role</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Allocated Hours</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <t t-foreach="schedules" t-as="schedule">
+                        <tr>
+                            <td>
+                                <a t-att-href="schedule.get_portal_url(schedule.id, access_token)" t-att-title="schedule.employee_id.name">
+                                    <t t-esc="schedule.employee_id.name" t-if="schedule.employee_id.name != '/'"/>
+                                    <em t-else="">Draft Schedule</em>
+                                </a>
+                            </td>
+                            <td>
+                                <span t-field="schedule.role_id.name"/>
+                            </td>
+                            <td>
+                                <span t-field="schedule.start_datetime"/>
+                            </td>
+                            <td>
+                                <span t-field="schedule.end_datetime"/>
+                            </td>
+                            <td>
+                                <span t-esc="'%.2f'% schedule.allocated_hours"/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+        </t>
+    </template>
+
+    <template id="portal_my_schedule_page" name="Schedule" inherit_id="portal.portal_sidebar" primary="True">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+
+            <t t-set="o_portal_fullwidth_alert" groups="sales_team.group_sale_salesman,account.group_account_invoice,account.group_account_readonly">
+                <t t-call="portal.portal_back_in_edit_mode">
+                    <t t-set="backend_url" t-value="'/web#model=planning.slot&amp;id=%s&amp;view_type=form' % (schedule.id)"/>
+                </t>
+            </t>
+
+            <div class="row mt16 o_portal_invoice_sidebar">
+                <t t-call="portal.portal_record_sidebar">
+                    <t t-set="classes" t-value="'col-lg-auto d-print-none'"/>
+                    <t t-set="title">
+                        <h4 class="mb-0">
+                            <b t-if="schedule.employee_id.name" t-field="schedule.employee_id.name"/>
+                        </h4>
+                        <div class="small" t-if="schedule.start_datetime"><i class="fa fa-clock-o"/><span class="o_portal_sidebar_timeago ml4" t-att-datetime="schedule.start_datetime"/></div>
+                    </t>
+
+                    <t t-set="entries">
+                        <ul class="list-group list-group-flush flex-wrap flex-row flex-lg-column">
+                            <li class="list-group-item flex-grow-1">
+                                <div class="o_download_pdf btn-toolbar flex-sm-nowrap">
+                                    <div class="btn-group  flex-grow-1 mr-1 mb-1">
+                                        <a class="btn btn-secondary btn-block o_download_btn" t-att-href="schedule.get_portal_url(schedule.id, report_type='pdf', download=True)" title="Download"><i class="fa fa-download"/> Download</a>
+                                    </div>
+                                    <div class="btn-group flex-grow-1 mb-1">
+                                        <a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" t-att-href="schedule.get_portal_url(schedule.id, report_type='pdf')" id="print_schedule_card" title="Print" target="_blank"><i class="fa fa-print"/> Print</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li t-if="schedule.name" class="list-group-item flex-grow-1">
+                                <div class="small mb-1" style=""><strong class="text-muted">
+                                    <t t-if="schedule.name">
+                                        Schedule Details
+                                    </t>
+                                </strong></div>
+                                <div class="row">
+                                    <div class="col flex-grow-0 pr-2">
+                                        <img t-if="schedule.employee_id.image_1024" class="rounded-circle mt-1 o_portal_contact_img" t-att-src="image_data_uri(schedule.employee_id.image_1024)" alt="Schedule Card"/>
+                                        <img t-else="" class="rounded-circle mt-1 o_portal_contact_img" src="/web/static/src/img/user_menu_avatar.png" alt="Schedule Card"/>
+                                    </div>
+                                    <div class="col pl-0">
+                                        FROM <h6 t-if="schedule.start_datetime" t-esc="schedule.start_datetime"> </h6>
+                                        TO <h6 t-if="schedule.end_datetime" t-esc="schedule.end_datetime"> </h6>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </t>
+                </t>
+
+                <div id="invoice_content" class="col-12 col-lg">
+                    <div class="o_portal_html_view shadow p-3">
+                        <div class="o_portal_html_loader text-center">
+                            <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw text-black-50"></i>
+                        </div>
+                        <iframe id="invoice_html" class="mt8 mb8" width="100%" height="100%" frameborder="0" scrolling="no" t-att-src="schedule.get_portal_url(schedule.id, report_type='html')"/>
+                    </div>
+                </div>
+            </div>
+
+        </xpath>
+    </template>
+
+</odoo>

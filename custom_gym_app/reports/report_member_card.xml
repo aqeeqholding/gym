@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="report_member_card"
+        string="Membership Card"
+        model="res.partner"
+        report_type="qweb-pdf"
+        name="custom_gym_app.report_member_card_template"
+        file="custom_gym_app.report_member_card_template"
+        print_report_name="'Membership - %s' % (object.name).replace('/', '')"
+    />
+
+    <template id="report_member_card_template">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-foreach="docs" t-as="member">
+                    <div style="margin:2.5px;">
+                        <t t-set="subscription" t-value="request.env['sale.subscription'].sudo().search([('partner_id', '=', member.id)])"/>
+                        <t t-set="subscription_count" t-value="request.env['sale.subscription'].sudo().search_count([('partner_id', '=', member.id)])"/>
+
+                        <table style="width:245pt; height:155pt; border: 1pt solid black; border-collapse:separate; border-radius:8.5pt;">
+                            <td style="width:33%;" valign="center">
+                                <table style="width:75pt; height:150pt">
+                                    <tr style="height:30%">
+                                        <td align="center" valign="center">
+                                            <img src='/web/binary/company_logo' class="float-left" style="margin-top:5px;margin-left:5px;max-height:45pt;max-width:90%" alt="Logo"/>
+                                        </td>
+                                    </tr>
+
+                                    <tr style="height:70%;">
+                                        <td align="center" valign="center">
+                                            <img t-if="member.image_1920" t-att-src="image_data_uri(member.image_1920)" style="margin-top:7.5px;max-height:85pt;max-width:90%" alt="Member Image"/>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th><h6 style="font-weight:bold;margin-left:10px;margin-top:10px;">ID- <span t-esc="member.id"/></h6></th>
+                                    </tr>
+                                </table>
+                            </td>
+
+                            <td style="width:65%" valign="center">
+                                <table style="width:155pt; height:85pt">
+                                    <tr><th><div style="font-size:15pt; margin-bottom:0pt;margin-top:0pt;" align="left"><t t-esc="member.name"/></div></th></tr>
+                                    <tr><td><div align="left" style="font-size:10pt;margin-bottom:5pt;"><t t-esc="member.email"/></div></td></tr>
+                                    <tr><td><div align="left" style="font-size:10pt;margin-bottom:5pt;"><t t-esc="member.function"/></div></td></tr>
+                                    <tr><td><div align="left" style="font-size:10pt;margin-bottom:5pt;"><t t-esc="member.mobile"/></div></td></tr>
+                                    <tr><td><div align="left" style="font-size:10pt;margin-bottom:5pt;"><t t-esc="member.phone"/></div></td></tr>
+                                    <tr><td><div align="left" style="font-size:10pt;margin-bottom:5pt;"><t t-esc="member.country_id.name"/></div></td></tr>
+
+                                    <tr t-if="subscription">
+                                        <th><div style="font-size:15pt; margin-bottom:0pt;margin-top:0pt;" align="left"><t t-esc="subscription[subscription_count-1].template_id.name"/></div></th>
+                                    </tr>
+                                    <tr t-if="subscription">
+                                        <td><div align="left" style="font-size:10pt;margin-bottom:5pt;">Start Date: <t t-esc="subscription[subscription_count-1].date_start"/></div></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </table>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+</odoo>
