@@ -8,7 +8,7 @@
     'author': "Fazal Ur Rahman",
     'category': 'Extra Tools',
     'version': '14.0.0.1',
-    'depends': ['base', 'planning'],
+    'depends': ['base', 'planning', 'sale', 'sale_subscription'],
 
     'data': [
         'security/ir.model.access.csv',

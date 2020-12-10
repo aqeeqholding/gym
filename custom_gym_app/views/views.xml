@@ -1,18 +1,5 @@
 <odoo>
     <data>
-        <record id="view_partner_form_inherit" model="ir.ui.view">
-            <field name="name">res.partner.form.inherit</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form"/>
-            <field name="arch" type="xml">
-            <data>
-                 <xpath expr="//notebook[@colspan='4']" position="before">
-                     <group>
-                         <field name="gym_type" widget="radio"/>
-                     </group>
-                 </xpath>
-            </data>
-            </field>
-        </record>
+
     </data>
 </odoo>
