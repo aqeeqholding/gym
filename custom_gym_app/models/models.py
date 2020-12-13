@@ -7,6 +7,10 @@ from odoo import models, fields, api
 class ResPartnerInherit(models.Model):
     _inherit = 'res.partner'
 
+    national_id = fields.Char(string='National ID')
+    birth_date = fields.Date(string='Birth Date')
+    nationality = fields.Char(string='Nationality')
+
     access_token = fields.Char('Security Token', copy=False)
     gym_type = fields.Selection([('trainer', "Trainer"), ('member', "Member")], string='User Type')
 
