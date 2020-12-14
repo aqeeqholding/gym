@@ -8,6 +8,10 @@
             <field name="arch" type="xml">
                 <field name="company_type" position="replace"/>
 
+                <field name="type" position="before">
+                    <field name="id" string="Identification No."/>
+                </field>
+
                 <xpath expr="//span[@name='address_name']" position="replace">
                      <span class="o_form_label o_td_label" name="address_name">
                         <b>Member Address</b>
