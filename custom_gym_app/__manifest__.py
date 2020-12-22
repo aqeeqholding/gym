@@ -12,6 +12,7 @@
 
     'data': [
         'security/ir.model.access.csv',
+        'security/security.xml',
         'views/gym_registration.xml',
         'views/membership_view.xml',
         'views/schedule_view.xml',
