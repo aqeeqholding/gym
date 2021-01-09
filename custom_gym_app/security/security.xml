@@ -16,18 +16,11 @@
         <field name="category_id" ref="custom_gym_app.module_aqeeq_gym_category"/>
     </record>
 
-    <!--<record id="hr_personal_rule" model="ir.rule">
-        <field name="name">Employee</field>
-        <field ref="hr.model_hr_employee" name="model_id"/>
-        <field name="domain_force">[('user_id','=',user.id)]</field>
-        <field name="groups" eval="[(4, ref('custom_gym_app.group_gym_trainer'))]"/>
+    <record id="res_partner_rule" model="ir.rule">
+        <field name="name">Partner</field>
+        <field ref="hr.model_res_partner" name="model_id"/>
+        <field name="domain_force">[('parent_id.company_id','=',user.company_id.id)]</field>
+        <field name="groups" eval="[(4, ref('custom_gym_app.group_gym_manager'))]"/>
     </record>
-
-    <record id="planning_slot_rule" model="ir.rule">
-        <field name="name">Planning</field>
-        <field ref="planning.model_planning_slot" name="model_id"/>
-        <field name="domain_force">[('employee_id.user_id','=',user.id)]</field>
-        <field name="groups" eval="[(4, ref('custom_gym_app.group_gym_trainer'))]"/>
-    </record>-->
 
 </odoo>

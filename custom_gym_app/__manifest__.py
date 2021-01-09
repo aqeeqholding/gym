@@ -20,6 +20,7 @@
         'reports/report_member_card.xml',
         'views/views.xml',
         'views/templates.xml',
+        'data/data.xml',
     ],
     'demo': [
         'demo/demo.xml',
