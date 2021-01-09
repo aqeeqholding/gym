@@ -1,0 +1,157 @@
+<odoo>
+    <data>
+        <record id="form_res_partner_inheritance" model="ir.ui.view">
+            <field name="name">res.partner.form.inheritance</field>
+            <field name="model">res.partner</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="company_type" position="replace"/>
+
+                <field name="type" position="before">
+                    <field name="id" string="Identification No."/>
+                </field>
+
+                <xpath expr="//span[@name='address_name']" position="replace">
+                     <span class="o_form_label o_td_label" name="address_name">
+                        <b>Member Address</b>
+                    </span>
+                </xpath>
+
+                <field name="vat" position="replace">
+                    <field name="national_id"/>
+                    <field name="birth_date"/>
+                    <field name="nationality"/>
+                </field>
+
+                <field name="website" position="attributes">
+                    <attribute name="string">Website Link</attribute>
+                </field>
+
+                 <xpath expr="//notebook[@colspan='4']" position="before">
+                     <group>
+                         <field name="gym_type" widget="radio"/>
+                     </group>
+                 </xpath>
+            </field>
+        </record>
+
+        <record id="search_res_partner_inheritance" model="ir.ui.view">
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" filter_domain="['|', '|', ('display_name', 'ilike', self), ('ref', '=', self), ('email', 'ilike', self)]"/>
+                    <field name="parent_id" domain="[('is_company', '=', True)]" operator="child_of"/>
+                    <field name="email" filter_domain="[('email', 'ilike', self)]"/>
+                    <field name="phone" filter_domain="['|', ('phone', 'ilike', self), ('mobile', 'ilike', self)]"/>
+                    <field name="user_id"/>
+
+                    <separator/>
+                        <filter string="Individuals" name="type_person" domain="[('is_company', '=', False)]"/>
+                        <filter string="Companies" name="type_company" domain="[('is_company', '=', True)]"/>
+                    <separator/>
+                        <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                    <separator/>
+
+                    <group expand="0" name="group_by" string="Group By">
+                        <filter name="salesperson" string="Salesperson" domain="[]" context="{'group_by' : 'user_id'}"/>
+                        <filter name="group_company" string="Company" context="{'group_by': 'parent_id'}"/>
+                        <filter name="group_country" string="Country" context="{'group_by': 'country_id'}"/>
+                    </group>
+
+                    <filter string="Gym" name="category_id" domain="[('category_id.name', '=', 'Gym')]"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_res_partner_inheritance">
+            <field name="name">Members</field>
+            <field name="res_model">res.partner</field>
+            <field name="domain">[('category_id.name', '=', 'Gym'), ('gym_type', '!=', 'trainer')]</field>
+            <field name="context">{'search_default_category_id': 1}</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'kanban'}), (0, 0, {'view_mode': 'tree'}), (0, 0, {'view_mode': 'form', 'view_id': ref('custom_gym_app.form_res_partner_inheritance')})]"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_res_trainer_inheritance">
+            <field name="name">Trainers</field>
+            <field name="res_model">res.partner</field>
+            <field name="domain">[('category_id.name', '=', 'Gym'), ('gym_type', '=', 'trainer')]</field>
+            <field name="context">{'search_default_category_id': 1}</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'kanban'}), (0, 0, {'view_mode': 'tree'}), (0, 0, {'view_mode': 'form', 'view_id': ref('custom_gym_app.form_res_partner_inheritance')})]"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_res_user_inheritance">
+            <field name="name">Portal Management</field>
+            <field name="res_model">res.users</field>
+            <field name="domain">[('share', '=', True)]</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_subscription_inheritance">
+            <field name="name">Subscriptions</field>
+            <field name="res_model">sale.subscription</field>
+            <field name="view_mode">kanban,tree,form,pivot,graph,cohort,activity</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_planning_slot_inheritance">
+            <field name="name">Planning</field>
+            <field name="res_model">planning.slot</field>
+            <field name="view_mode">gantt,tree,form,pivot</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_move_out_invoice_type_inheritance" >
+            <field name="name">Invoices</field>
+            <field name="res_model">account.move</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="view_id" ref="account.view_out_invoice_tree"/>
+            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+            <field name="domain">[('move_type', '=', 'out_invoice'), ('invoice_user_id', '=', uid)]</field>
+            <field name="context">{'default_move_type': 'out_invoice'}</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a customer invoice
+              </p><p>
+                Create invoices, register payments and keep track of the discussions with your customers.
+              </p>
+            </field>
+        </record>
+
+        <menuitem name="Aqeeq Gym" id="menu_res_partner_inheritance" sequence="1"
+                  web_icon="custom_gym_app,static/description/menu.jpg"/>
+
+        <menuitem name="Members" id="menu_gym_membership" sequence="1"
+                  action="custom_gym_app.action_res_partner_inheritance"
+                  parent="custom_gym_app.menu_res_partner_inheritance"/>
+
+        <menuitem name="Trainers" id="menu_gym_trainers" sequence="2"
+                  action="custom_gym_app.action_res_trainer_inheritance"
+                  parent="custom_gym_app.menu_res_partner_inheritance"/>
+
+        <menuitem name="Subscriptions" id="menu_gym_subscription" sequence="3"
+                  action="custom_gym_app.action_subscription_inheritance"
+                  parent="custom_gym_app.menu_res_partner_inheritance"/>
+
+        <menuitem name="Planning" id="x_menu_gym_planning" sequence="4"
+                  action="custom_gym_app.action_planning_slot_inheritance"
+                  parent="custom_gym_app.menu_res_partner_inheritance"/>
+
+        <menuitem name="Invoices" id="menu_gym_invoices_manager" sequence="5"
+                  action="account.action_move_out_invoice_type"
+                  parent="custom_gym_app.menu_res_partner_inheritance" groups="custom_gym_app.group_gym_manager"/>
+
+        <menuitem name="Invoices" id="menu_gym_invoices_trainer" sequence="5"
+                  action="custom_gym_app.action_move_out_invoice_type_inheritance"
+                  parent="custom_gym_app.menu_res_partner_inheritance" groups="custom_gym_app.group_gym_trainer"/>
+
+        <menuitem name="Portal Management" id="menu_gym_portal_management" sequence="6"
+                  action="custom_gym_app.action_res_user_inheritance"
+                  parent="custom_gym_app.menu_res_partner_inheritance"/>
+
+        <menuitem name="Employees" id="menu_gym_planning" sequence="7"
+                  action="hr.open_view_employee_list_my"
+                  parent="custom_gym_app.menu_res_partner_inheritance"
+                  groups="custom_gym_app.group_gym_manager"/>
+    </data>
+</odoo>

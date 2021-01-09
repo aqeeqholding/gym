@@ -1,0 +1,146 @@
+<odoo>
+
+    <template id="portal_my_membership_tickets_breadcrumb" name="Membership : membership menu entries" inherit_id="portal.portal_breadcrumbs" priority="32">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'membership'" t-attf-class="breadcrumb-item #{'active ' if not membership else ''}">
+                <a t-if="membership" t-attf-href="/my/membership?{{ keep_query() }}">Membership</a>
+                <t t-else="">Membership</t>
+            </li>
+            <li t-if="membership" class="breadcrumb-item active">
+                <t t-esc="membership.name" t-if="membership.name != '/'"/>
+                <t t-else=""><em>Draft Membership</em></t>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="portal_my_membership_tickets" name="Membership" inherit_id="portal.portal_my_home" priority="32">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Membership</t>
+                <t t-set="url" t-value="'/my/membership'"/>
+                <t t-set="placeholder_count" t-value="'membership_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_my_membership" name="Membership">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Membership</t>
+            </t>
+
+            <t t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Member Name</th>
+                        <th>Position</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <t t-foreach="memberships" t-as="membership">
+                        <tr>
+                            <td>
+                                <a t-att-href="membership.get_portal_url(membership.id, access_token)" t-att-title="membership.name">
+                                    <t t-esc="membership.name" t-if="membership.name != '/'"/>
+                                    <em t-else="">Draft Membership</em>
+                                </a>
+                            </td>
+                            <td>
+                                <span t-field="membership.function"/>
+                            </td>
+                            <td>
+                                <span t-field="membership.phone"/>
+                            </td>
+                            <td>
+                                <span t-field="membership.email"/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+        </t>
+    </template>
+
+    <template id="portal_my_membership_page" name="Membership" inherit_id="portal.portal_sidebar" primary="True">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+
+            <t t-set="o_portal_fullwidth_alert" groups="sales_team.group_sale_salesman,account.group_account_invoice,account.group_account_readonly">
+                <t t-call="portal.portal_back_in_edit_mode">
+                    <t t-set="backend_url" t-value="'/web#model=res.partner&amp;id=%s&amp;view_type=form' % (membership.id)"/>
+                </t>
+            </t>
+
+            <div class="row mt16 o_portal_invoice_sidebar">
+                <t t-call="portal.portal_record_sidebar">
+                    <t t-set="classes" t-value="'col-lg-auto d-print-none'"/>
+                    <t t-set="title">
+                        <h4 class="mb-0">
+                            <b t-if="membership.name" t-field="membership.name"/>
+                        </h4>
+                        <span t-esc="membership.function"/>
+                        <div t-if="membership.type">
+                            <span t-esc="membership.type" style="text-transform: capitalize;"/>
+                        </div>
+                    </t>
+
+                    <t t-set="entries">
+                        <ul class="list-group list-group-flush flex-wrap flex-row flex-lg-column">
+                            <li class="list-group-item flex-grow-1">
+                                <div class="o_download_pdf btn-toolbar flex-sm-nowrap">
+                                    <div class="btn-group  flex-grow-1 mr-1 mb-1">
+                                        <a class="btn btn-secondary btn-block o_download_btn" t-att-href="membership.get_portal_url(membership.id, report_type='pdf', download=True)" title="Download"><i class="fa fa-download"/> Download</a>
+                                    </div>
+                                    <div class="btn-group flex-grow-1 mb-1">
+                                        <a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" t-att-href="membership.get_portal_url(membership.id, report_type='pdf')" id="print_membership_card" title="Print" target="_blank"><i class="fa fa-print"/> Print</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li t-if="membership.name" class="list-group-item flex-grow-1">
+                                <div class="small mb-1" style=""><strong class="text-muted">
+                                    <t t-if="membership.name">
+                                        Membership Card
+                                    </t>
+                                </strong></div>
+                                <div class="row">
+                                    <div class="col flex-grow-0 pr-2">
+                                        <img t-if="membership.image_1024" class="rounded-circle mt-1 o_portal_contact_img" t-att-src="image_data_uri(membership.image_1024)" alt="Membership Card"/>
+                                        <img t-else="" class="rounded-circle mt-1 o_portal_contact_img" src="/web/static/src/img/user_menu_avatar.png" alt="Membership Card"/>
+                                    </div>
+                                    <div class="col pl-0">
+                                        <h6 t-if="membership.phone" t-esc="membership.phone"> </h6>
+                                        <h6 t-if="membership.mobile" t-esc="membership.mobile"> </h6>
+                                        <h6 t-if="membership.email" t-esc="membership.email"> </h6>
+                                        <a href="#discussion" class="small"><i class="fa fa-fw fa-comments"/><b>Send message</b></a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </t>
+                </t>
+
+                <div id="invoice_content" class="col-12 col-lg">
+                    <div class="o_portal_html_view shadow p-3">
+                        <div class="o_portal_html_loader text-center">
+                            <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw text-black-50"></i>
+                        </div>
+                        <iframe id="invoice_html" class="mt8 mb8" width="100%" height="100%" frameborder="0" scrolling="no" t-att-src="membership.get_portal_url(membership.id, report_type='html')"/>
+                    </div>
+
+                    <div id="invoice_communication" class="mt-4">
+                        <h2>History</h2>
+                        <t t-call="portal.message_thread">
+                            <t t-set="object" t-value="membership"/>
+                        </t>
+                    </div>
+                </div>
+            </div>
+
+        </xpath>
+    </template>
+
+</odoo>
