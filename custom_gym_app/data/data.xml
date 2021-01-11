@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="aqeeq_gym_chart_template" model="account.chart.template">
+        <!--<record id="aqeeq_gym_chart_template" model="account.chart.template">
             <field name="name">Aqeeq Gym Chart of Accounts</field>
             <field name="cash_account_code_prefix">180140</field>
             <field name="bank_account_code_prefix">180141</field>
@@ -23,6 +23,6 @@
             <field name="code">123456789</field>
             <field name="user_type_id" ref="account.data_account_type_payable"/>
             <field name="reconcile" eval="True"/>
-        </record>
+        </record>-->
     </data>
 </odoo>
