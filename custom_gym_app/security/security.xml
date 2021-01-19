@@ -7,7 +7,7 @@
     </record>
 
     <record id="group_gym_trainer" model="res.groups">
-        <field name="name">Trainer</field>
+        <field name="name">Employee</field>
         <field name="category_id" ref="custom_gym_app.module_aqeeq_gym_category"/>
     </record>
 
