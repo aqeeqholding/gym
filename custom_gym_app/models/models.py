@@ -10,6 +10,7 @@ class ResPartnerInherit(models.Model):
     national_id = fields.Char(string='National ID')
     birth_date = fields.Date(string='Birth Date')
     nationality = fields.Char(string='Nationality')
+    member_selection = fields.Selection(selection=[('arabic', 'عضوية شركاء النجاح')], string="Member")
 
     access_token = fields.Char('Security Token', copy=False)
     gym_type = fields.Selection([('trainer', "Trainer"), ('member', "Member")], string='User Type')

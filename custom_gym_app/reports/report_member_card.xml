@@ -39,20 +39,21 @@
                                 </table>
                             </td>
 
-                            <td style="width:65%" valign="center">
+                            <td style="width:65%" valign="right">
                                 <table style="width:155pt; height:85pt">
-                                    <tr><th><div style="font-size:15pt; margin-bottom:0pt;margin-top:0pt;" align="left"><t t-esc="member.name"/></div></th></tr>
-                                    <tr><td><div align="left" style="font-size:10pt;margin-bottom:5pt;"><t t-esc="member.email"/></div></td></tr>
-                                    <tr><td><div align="left" style="font-size:10pt;margin-bottom:5pt;"><t t-esc="member.function"/></div></td></tr>
-                                    <tr><td><div align="left" style="font-size:10pt;margin-bottom:5pt;"><t t-esc="member.mobile"/></div></td></tr>
-                                    <tr><td><div align="left" style="font-size:10pt;margin-bottom:5pt;"><t t-esc="member.phone"/></div></td></tr>
-                                    <tr><td><div align="left" style="font-size:10pt;margin-bottom:5pt;"><t t-esc="member.country_id.name"/></div></td></tr>
+                                    <tr t-if="member.member_selection == 'arabic'"><div style="font-size:15pt; margin-bottom:0pt;margin-top:0pt;" align="right">عضوية شركاء النجاح</div></tr>
+                                    <tr><th><div style="font-size:15pt; margin-bottom:0pt;margin-top:0pt;" align="right"><t t-esc="member.name"/></div></th></tr>
+                                    <tr><td><div align="right" style="font-size:10pt;margin-bottom:5pt;"><t t-esc="member.email"/></div></td></tr>
+                                    <tr><td><div align="right" style="font-size:10pt;margin-bottom:5pt;"><t t-esc="member.function"/></div></td></tr>
+                                    <tr><td><div align="right" style="font-size:10pt;margin-bottom:5pt;"><t t-esc="member.mobile"/></div></td></tr>
+                                    <tr><td><div align="right" style="font-size:10pt;margin-bottom:5pt;"><t t-esc="member.phone"/></div></td></tr>
+                                    <tr><td><div align="right" style="font-size:10pt;margin-bottom:5pt;"><t t-esc="member.country_id.name"/></div></td></tr>
 
                                     <tr t-if="subscription">
-                                        <th><div style="font-size:15pt; margin-bottom:0pt;margin-top:0pt;" align="left"><t t-esc="subscription[subscription_count-1].template_id.name"/></div></th>
+                                        <th><div style="font-size:15pt; margin-bottom:0pt;margin-top:0pt;" align="right"><t t-esc="subscription[subscription_count-1].template_id.name"/></div></th>
                                     </tr>
                                     <tr t-if="subscription">
-                                        <td><div align="left" style="font-size:10pt;margin-bottom:5pt;">Start Date: <t t-esc="subscription[subscription_count-1].date_start"/></div></td>
+                                        <td><div align="right" style="font-size:10pt;margin-bottom:5pt;">Start Date: <t t-esc="subscription[subscription_count-1].date_start"/></div></td>
                                     </tr>
                                 </table>
                             </td>
@@ -61,5 +62,41 @@
                 </t>
             </div>
         </t>
+    </template>
+
+    <template id="report_invoice_document_inherit_gym" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@id='qrcode']" position="after">
+            <div>
+                <hr/>
+                <p class="text-right">
+                    :يرجى الالتزام بالتعليمات الآتية
+                    <br/>
+                    المبلغ المدفوع لا يكمن استرجاعه او استبدال الاشتراك بشخص آخر •
+                    <br/>
+                    يمنع التصوير في ارجاء النادي وفي حال مخالفة ذلك يتم الغاء الاشتراك على الفور •
+                    <br/>
+                    الحفاظ على ممتلكات النادي وفي حال مخالفة ذلك يتم الغاء الاشتراك على الفور •
+                    <br/>
+                    الالتزام بالزي الرياضي الشرعي وتجنب لبس الملابس التي تحتوي على (فتحة صدر – اظهار البطن – مافوق الركبة) •
+                    <br/>
+                    المحافظة على الذوق العام واظهار الاحترام لموظفات ومشتركات النادي •
+                    <br/>
+                    الالتزام بلبس المايوه الاسلامي وغطاء الراس المخصصة للسباحة •
+                    <br/>
+                    في حال التغيب لا يوجد تعويض او تجميد الاشتراك في خدمة الشهر •
+                    <br/>
+                    في خدمة 3 اشهر تجميد الاشتراك اسبوعين فقط •
+                    <br/>
+                    في خدمة 6 اشهر تجميد الاشتراك لمدة شهرين فقط •
+                    <br/>
+                    مع تبليغ الادارة مسبقا •
+                    <br/>
+                    النادي يخلص مسؤوليته التام عن اي اصابة تحدث للمتدربة •
+                    <br/>
+                    سوف يتم بدء الاشتراك من اليوم علما بان النادي يخلي مسؤوليته تمام مما سبق في حال عدم الالتزام •
+                    <br/>
+                </p>
+            </div>
+        </xpath>
     </template>
 </odoo>
