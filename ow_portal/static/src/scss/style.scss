@@ -1,0 +1,135 @@
+
+.o_portal_docs.list-group.ow_portal {
+    width: 100%;
+    display: inline-block;
+}
+
+
+.ow_portal {
+	width: 100%;
+	display: inline-block;
+	
+	.badge-pill {
+		font-size: 24px;
+	}
+	
+    .badge-secondary {
+		font-size: 14px;
+		background-color: #202020;
+		color: white;
+    }
+	
+	.list-group-item {
+	        float: left;
+		    margin: 10px;
+		    padding: 14px 18px;
+		    min-height: 130px;
+            width: 30%;
+            border-radius: 2.5px;
+		    font-size: 16px;
+		    
+            @media (max-width: 767px) {
+                width: 100%;
+            }
+	}
+	
+	[href="/my/quotes"] {
+		background-color: #993366;
+		color: #fff !important;
+	}
+
+	[href="/ar/my/quotes"] {
+		background-color: #993366;
+		color: #fff !important;
+	}
+
+	[href="/my/orders"]{
+		background-color: #F06B4E;
+		color: #fff !important;
+	}
+
+	[href="/ar/my/orders"]{
+		background-color: #F06B4E;
+		color: #fff !important;
+	}
+	
+    	[href="/my/purchase"]{
+		background-color: #548137;
+		color: #fff !important;
+	}
+
+    	[href="/ar/my/purchase"]{
+		background-color: #548137;
+		color: #fff !important;
+	}
+
+	[href="/my/invoices"] {
+		background-color: #177979;
+		 color: #fff !important;
+	}
+
+	[href="/ar/my/invoices"] {
+		background-color: #177979;
+		 color: #fff !important;
+	}
+
+	[href="/my/projects"] {
+		background-color: #366C9F;
+		color: #fff !important;
+	}
+
+	[href="/ar/my/projects"] {
+		background-color: #366C9F;
+		color: #fff !important;
+	}
+
+	[href="/my/tasks"] {
+		background-color: #0083FF;
+        color: #fff !important;
+	}
+
+	[href="/ar/my/tasks"] {
+		background-color: #0083FF;
+        color: #fff !important;
+	}
+    
+	[href="/my/timesheets"]{
+		background-color: #756494;
+		color: #fff !important;
+	}
+
+	[href="/ar/my/timesheets"]{
+		background-color: #756494;
+		color: #fff !important;
+	}
+
+	[href="/my/schedule"]{
+		background-color: #003366;
+		color: #fff !important;
+	}
+
+	[href="/ar/my/schedule"]{
+		background-color: #003366;
+		color: #fff !important;
+	}
+
+	[href="/my/membership"]{
+		background-color: #ff6666;
+		color: #fff !important;
+	}
+
+	[href="/ar/my/membership"]{
+		background-color: #ff6666;
+		color: #fff !important;
+	}
+
+	[href="/my/subscription"]{
+		background-color: #006600;
+		color: #fff !important;
+	}
+
+	[href="/ar/my/subscription"]{
+		background-color: #006600;
+		color: #fff !important;
+	}
+}

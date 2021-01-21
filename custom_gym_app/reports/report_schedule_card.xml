@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="report_schedule_card"
+        string="Schedule Card"
+        model="planning.slot"
+        report_type="qweb-pdf"
+        name="custom_gym_app.report_schedule_card_template"
+        file="custom_gym_app.report_schedule_card_template"
+        print_report_name="'Schedule - %s' % (object.employee_id.name).replace('/', '')"
+    />
+
+    <template id="report_schedule_card_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="schedule">
+                <t t-call="web.external_layout">
+                    <div class="page" style="margin-top:15px;">
+                        <h6>
+                            <strong><p t-esc="schedule.employee_id.name"/></strong>
+                        </h6>
+
+                        <table class="table table-sm o_main_table">
+                            <thead>
+                                <tr style="background-color:#B0B0B0;">
+                                    <th colspan="2" class="text-center"><strong>Schedule Details</strong></th>
+                                </tr>
+
+                                <tr t-if="schedule.employee_id">
+                                    <th name="th_description" style="width:180px;" class="text-left"><span>Assigned To</span></th>
+                                    <td name="th_description" class="text-left"><span t-esc="schedule.employee_id.name"/></td>
+                                </tr>
+
+                                <tr t-if="schedule.role_id">
+                                    <th name="th_description" style="width:180px;" class="text-left"><span>Role</span></th>
+                                    <td name="th_description" class="text-left"><span t-esc="schedule.role_id.name"/></td>
+                                </tr>
+
+                                <tr t-if="schedule.start_datetime">
+                                    <th name="th_description" style="width:180px;" class="text-left"><span>Start Date</span></th>
+                                    <td name="th_description" class="text-left"><span t-esc="schedule.start_datetime"/></td>
+                                </tr>
+
+                                <tr t-if="schedule.end_datetime">
+                                    <th name="th_description" style="width:180px;" class="text-left"><span>End Date</span></th>
+                                    <td name="th_description" class="text-left"><span t-esc="schedule.end_datetime"/></td>
+                                </tr>
+
+                                <tr t-if="schedule.allocated_hours">
+                                    <th name="th_description" style="width:180px;" class="text-left"><span>Allocated Hours</span></th>
+                                    <td name="th_description" class="text-left"><span t-esc="'%.2f'% schedule.allocated_hours"/></td>
+                                </tr>
+                            </thead>
+                        </table>
+
+                        <table t-if="schedule.name" class="table table-sm o_main_table" style="margin-top:15px;">
+                            <thead>
+                                <tr style="background-color:#B0B0B0;">
+                                    <th class="text-center"><strong>Schedule Description</strong></th>
+                                </tr>
+
+                                <tr>
+                                    <td style="width:180px;" class="text-left">
+                                        <span t-esc="schedule.name"/>
+                                    </td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
