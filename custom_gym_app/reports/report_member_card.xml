@@ -66,9 +66,9 @@
 
     <template id="report_invoice_document_inherit_gym" inherit_id="account.report_invoice_document">
         <xpath expr="//div[@id='qrcode']" position="after">
-            <div>
+            <div style="float:right;">
                 <hr/>
-                <p class="text-right" style="float:right;text-align:left;">
+                <p style="text-align:right;">
                     :يرجى الالتزام بالتعليمات الآتية
                     <br/>
                     المبلغ المدفوع لا يكمن استرجاعه او استبدال الاشتراك بشخص آخر •
