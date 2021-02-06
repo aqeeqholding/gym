@@ -17,6 +17,71 @@
         <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
     </record>
 
+    <record id="module_customer_service_category" model="ir.module.category">
+        <field name="name">Customer Service</field>
+        <field name="sequence">2</field>
+    </record>
+
+    <record id="customer_service_edit_members" model="res.groups">
+        <field name="name">Edit Members</field>
+        <field name="category_id" ref="custom_gym_app.module_customer_service_category"/>
+    </record>
+
+    <record id="customer_service_edit_subscription" model="res.groups">
+        <field name="name">Edit Subscription</field>
+        <field name="category_id" ref="custom_gym_app.module_customer_service_category"/>
+    </record>
+
+    <record id="customer_service_view_planning" model="res.groups">
+        <field name="name">View Planning</field>
+        <field name="category_id" ref="custom_gym_app.module_customer_service_category"/>
+    </record>
+
+    <record id="customer_service_edit_portal_management" model="res.groups">
+        <field name="name">Edit Portal Management</field>
+        <field name="category_id" ref="custom_gym_app.module_customer_service_category"/>
+    </record>
+
+    <record id="module_reception_category" model="ir.module.category">
+        <field name="name">Reception</field>
+        <field name="sequence">3</field>
+    </record>
+
+    <record id="reception_create_edit_members" model="res.groups">
+        <field name="name">Create Edit Members</field>
+        <field name="category_id" ref="custom_gym_app.module_reception_category"/>
+    </record>
+
+    <record id="reception_create_edit_subscription" model="res.groups">
+        <field name="name">Create Edit Subscription</field>
+        <field name="category_id" ref="custom_gym_app.module_reception_category"/>
+    </record>
+
+    <record id="reception_view_planning" model="res.groups">
+        <field name="name">View Planning</field>
+        <field name="category_id" ref="custom_gym_app.module_reception_category"/>
+    </record>
+
+    <record id="reception_create_invoice" model="res.groups">
+        <field name="name">Create Invoice</field>
+        <field name="category_id" ref="custom_gym_app.module_reception_category"/>
+    </record>
+
+    <record id="reception_edit_portal_management" model="res.groups">
+        <field name="name">Edit Portal Management</field>
+        <field name="category_id" ref="custom_gym_app.module_reception_category"/>
+    </record>
+
+    <record id="module_chef_trainer_category" model="ir.module.category">
+        <field name="name">Chef Trainer</field>
+        <field name="sequence">4</field>
+    </record>
+
+    <record id="chef_trainers_create_edit_planning" model="res.groups">
+        <field name="name">Create Edit Planning</field>
+        <field name="category_id" ref="custom_gym_app.module_chef_trainer_category"/>
+    </record>
+
     <record id="res_partner_rule" model="ir.rule">
         <field name="name">Partner</field>
         <field ref="hr.model_res_partner" name="model_id"/>
