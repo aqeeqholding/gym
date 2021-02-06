@@ -68,7 +68,7 @@
         <xpath expr="//div[@id='qrcode']" position="after">
             <div>
                 <hr/>
-                <p class="text-right" style="float:right;text-align:right;">
+                <p class="text-right" style="float:right;text-align:left;">
                     :يرجى الالتزام بالتعليمات الآتية
                     <br/>
                     المبلغ المدفوع لا يكمن استرجاعه او استبدال الاشتراك بشخص آخر •
