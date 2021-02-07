@@ -65,8 +65,8 @@
     </template>
 
     <template id="report_invoice_document_inherit_gym" inherit_id="account.report_invoice_document">
-        <xpath expr="//div[@class='clearfix']" position="after">
-            <div style="display:block;float:right;">
+        <xpath expr="//div[@id='qrcode']" position="after">
+            <div style="display:block;float:right;height:420px;">
                 <hr/>
                 <p style="text-align:right;">
                     :يرجى الالتزام بالتعليمات الآتية
