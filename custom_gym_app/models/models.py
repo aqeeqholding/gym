@@ -7,13 +7,58 @@ from odoo import models, fields, api
 class ResPartnerInherit(models.Model):
     _inherit = 'res.partner'
 
+    member_status = fields.Selection([('draft', "Draft"), ('approved', "Approved")], group_expand='_expand_member_status', default='draft', string='Member Status')
+
     national_id = fields.Char(string='National ID')
     birth_date = fields.Date(string='Birth Date')
-    nationality = fields.Char(string='Nationality')
+    nationality = fields.Many2one('res.country', string='Nationality')
     member_selection = fields.Selection(selection=[('arabic', 'عضوية شركاء النجاح')], string="Member")
 
     access_token = fields.Char('Security Token', copy=False)
     gym_type = fields.Selection([('trainer', "Trainer"), ('member', "Member")], string='User Type')
+
+    def create(self, values):
+        res = super(ResPartnerInherit, self).create(values)
+        if res.member_selection == 'arabic':
+            member_pricelist = self.env['product.pricelist'].search([('name', 'like', 'Successful Member Pricelist')])
+            if member_pricelist:
+                res.property_product_pricelist = member_pricelist
+        return res
+
+    @api.onchange('member_selection')
+    def _onchange_member_selection(self):
+        for rec in self:
+            if rec.member_selection == 'arabic':
+                member_pricelist = self.env['product.pricelist'].search([('name', 'like', 'Successful Member Pricelist')])
+                if member_pricelist:
+                    rec.property_product_pricelist = member_pricelist
+
+    def write(self, values):
+        res = super(ResPartnerInherit, self).write(values)
+
+        if values.get('member_status'):
+            if values['member_status'] == 'approved':
+                user_obj = self.env['res.users']
+                group_portal = self.env.ref('base.group_portal')
+                partner_id = self.env['res.partner'].search([('name', '=', self.name)])
+
+                values_user = {
+                                'name': self.name,
+                                'login': self.email,
+                                'email': self.email,
+                                'active': True,
+                                'groups_id': [(4, group_portal.id)],
+                                'partner_id': partner_id.id,
+                              }
+
+                user_obj.sudo().create(values_user)
+                user_obj.sudo().action_reset_password()
+                print('MEMBER STATUS APPROVED')
+
+        return res
+
+    def _expand_member_status(self, states, domain, order):
+        return [key for key, val in type(self).member_status.selection]
 
     def _portal_ensure_token(self):
         """ Get the current record access token """
