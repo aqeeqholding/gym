@@ -1,104 +1,5 @@
 <odoo>
     <data>
-        <record id="sale_subscription_view_kanban_inherit" model="ir.ui.view">
-            <field name="name">sale.subscription.kanban.inheritance</field>
-            <field name="model">sale.subscription</field>
-            <field name="inherit_id" ref="sale_subscription.sale_subscription_view_kanban"/>
-            <field name="arch" type="xml">
-                <xpath expr="//kanban" position="attributes">
-                    <attribute name="create">false</attribute>
-                </xpath>
-            </field>
-        </record>
-
-        <record id="sale_subscription_view_list_inherit" model="ir.ui.view">
-            <field name="name">sale.subscription.tree.inheritance</field>
-            <field name="model">sale.subscription</field>
-            <field name="inherit_id" ref="sale_subscription.sale_subscription_view_list"/>
-            <field name="arch" type="xml">
-                <xpath expr="//tree" position="attributes">
-                    <attribute name="create">false</attribute>
-                </xpath>
-            </field>
-        </record>
-
-        <record id="sale_subscription_view_form_inherit" model="ir.ui.view">
-            <field name="name">sale.subscription.form.inheritance</field>
-            <field name="model">sale.subscription</field>
-            <field name="inherit_id" ref="sale_subscription.sale_subscription_view_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//form" position="attributes">
-                    <attribute name="create">false</attribute>
-                </xpath>
-            </field>
-        </record>
-
-        <record id="res_partner_kanban_view_inheritance" model="ir.ui.view">
-            <field name="name">res.partner.kanban.inheritance</field>
-            <field name="model">res.partner</field>
-            <field name="arch" type="xml">
-                <kanban class="o_res_partner_kanban" default_group_by="member_status" sample="1">
-                    <field name="id"/>
-                    <field name="color"/>
-                    <field name="display_name"/>
-                    <field name="title"/>
-                    <field name="email"/>
-                    <field name="parent_id"/>
-                    <field name="is_company"/>
-                    <field name="function"/>
-                    <field name="phone"/>
-                    <field name="street"/>
-                    <field name="street2"/>
-                    <field name="zip"/>
-                    <field name="city"/>
-                    <field name="country_id"/>
-                    <field name="mobile"/>
-                    <field name="state_id"/>
-                    <field name="category_id"/>
-                    <field name="image_128"/>
-                    <field name="type"/>
-                    <templates>
-                        <t t-name="kanban-box">
-                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban">
-                                <t t-if="!record.is_company.raw_value">
-                                    <t t-if="record.type.raw_value === 'delivery'" t-set="placeholder" t-value="'/base/static/img/truck.png'"/>
-                                    <t t-elif="record.type.raw_value === 'invoice'" t-set="placeholder" t-value="'/base/static/img/money.png'"/>
-                                    <t t-else="" t-set="placeholder" t-value="'/base/static/img/avatar_grey.png'"/>
-                                    <div class="o_kanban_image_fill_left d-none d-md-block" t-attf-style="background-image:url('#{kanban_image('res.partner', 'image_128', record.id.raw_value,  placeholder)}')">
-                                        <img class="o_kanban_image_inner_pic" t-if="record.parent_id.raw_value" t-att-alt="record.parent_id.value" t-att-src="kanban_image('res.partner', 'image_128', record.parent_id.raw_value)"/>
-                                    </div>
-                                    <div class="o_kanban_image d-md-none" t-attf-style="background-image:url('#{kanban_image('res.partner', 'image_128', record.id.raw_value,  placeholder)}')">
-                                        <img class="o_kanban_image_inner_pic" t-if="record.parent_id.raw_value" t-att-alt="record.parent_id.value" t-att-src="kanban_image('res.partner', 'image_128', record.parent_id.raw_value)"/>
-                                    </div>
-                                </t>
-                                <t t-else="">
-                                    <t t-set="placeholder" t-value="'/base/static/img/company_image.png'"/>
-                                    <div class="o_kanban_image_fill_left o_kanban_image_full" t-attf-style="background-image: url(#{kanban_image('res.partner', 'image_128', record.id.raw_value, placeholder)})" role="img"/>
-                                </t>
-                                <div class="oe_kanban_details d-flex flex-column">
-                                    <strong class="o_kanban_record_title oe_partner_heading"><field name="display_name"/></strong>
-                                    <div class="o_kanban_tags_section oe_kanban_partner_categories"/>
-                                    <ul>
-                                        <li t-if="record.parent_id.raw_value and !record.function.raw_value"><field name="parent_id"/></li>
-                                        <li t-if="!record.parent_id.raw_value and record.function.raw_value"><field name="function"/></li>
-                                        <li t-if="record.parent_id.raw_value and record.function.raw_value"><field name="function"/> at <field name="parent_id"/></li>
-                                        <li t-if="record.city.raw_value or record.country_id.raw_value">
-                                            <t t-if="record.city.raw_value"><field name="city"/><t t-if="record.country_id.raw_value">, </t></t>
-                                            <t t-if="record.country_id.raw_value"><field name="country_id"/></t>
-                                        </li>
-                                        <li t-if="record.email.raw_value" class="o_text_overflow"><field name="email"/></li>
-                                    </ul>
-                                    <div class="o_row">
-                                        <span class="oe_kanban_partner_links"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </t>
-                    </templates>
-                </kanban>
-            </field>
-        </record>
-
         <record id="form_res_partner_inheritance" model="ir.ui.view">
             <field name="name">res.partner.form.inheritance</field>
             <field name="model">res.partner</field>
@@ -108,7 +9,6 @@
                 <field name="company_type" position="replace"/>
 
                 <field name="type" position="before">
-                    <field name="member_status" string="Member Status" widget="radio"/>
                     <field name="id" string="Identification No."/>
                 </field>
 
@@ -160,9 +60,7 @@
                         <filter name="group_country" string="Country" context="{'group_by': 'country_id'}"/>
                     </group>
 
-                     <filter name="today" string="Today" domain="[('create_date','&gt;', (context_today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d'))]"/>
-                     <filter name="this_week" string="This Week" domain="[('create_date','&gt;', (context_today()+relativedelta(days=-7)).strftime('%%Y-%m-%d'))]"/>
-                     <filter name="this_month" string="This Month" domain="[('create_date','&gt;', (context_today()+relativedelta(days=-30)).strftime('%%Y-%m-%d'))]"/>
+                    <filter string="Gym" name="category_id" domain="[('category_id.name', '=', 'Gym')]"/>
                 </search>
             </field>
         </record>
@@ -173,7 +71,7 @@
             <field name="domain">[('category_id.name', '=', 'Gym'), ('gym_type', '!=', 'trainer')]</field>
             <field name="context">{'search_default_category_id': 1}</field>
             <field name="view_mode">kanban,tree,form</field>
-            <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'kanban', 'view_id': ref('custom_gym_app.res_partner_kanban_view_inheritance')}), (0, 0, {'view_mode': 'tree'}), (0, 0, {'view_mode': 'form', 'view_id': ref('custom_gym_app.form_res_partner_inheritance')})]"/>
+            <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'kanban'}), (0, 0, {'view_mode': 'tree'}), (0, 0, {'view_mode': 'form', 'view_id': ref('custom_gym_app.form_res_partner_inheritance')})]"/>
         </record>
 
         <record model="ir.actions.act_window" id="action_res_trainer_inheritance">
@@ -232,32 +130,27 @@
                   action="custom_gym_app.action_res_trainer_inheritance"
                   parent="custom_gym_app.menu_res_partner_inheritance"/>
 
-        <menuitem name="Sales" id="menu_gym_sale_orders" sequence="3"
-                  action="sale.action_quotations_with_onboarding"
-                  parent="custom_gym_app.menu_res_partner_inheritance"
-                  groups="custom_gym_app.group_gym_manager"/>
-
-        <menuitem name="Subscriptions" id="menu_gym_subscription" sequence="4"
+        <menuitem name="Subscriptions" id="menu_gym_subscription" sequence="3"
                   action="custom_gym_app.action_subscription_inheritance"
                   parent="custom_gym_app.menu_res_partner_inheritance"/>
 
-        <menuitem name="Planning" id="x_menu_gym_planning" sequence="5"
+        <menuitem name="Planning" id="x_menu_gym_planning" sequence="4"
                   action="custom_gym_app.action_planning_slot_inheritance"
                   parent="custom_gym_app.menu_res_partner_inheritance"/>
 
-        <menuitem name="Invoices" id="menu_gym_invoices_manager" sequence="6"
+        <menuitem name="Invoices" id="menu_gym_invoices_manager" sequence="5"
                   action="account.action_move_out_invoice_type"
                   parent="custom_gym_app.menu_res_partner_inheritance" groups="custom_gym_app.group_gym_manager"/>
 
-        <menuitem name="Invoices" id="menu_gym_invoices_trainer" sequence="7"
+        <menuitem name="Invoices" id="menu_gym_invoices_trainer" sequence="5"
                   action="custom_gym_app.action_move_out_invoice_type_inheritance"
                   parent="custom_gym_app.menu_res_partner_inheritance" groups="custom_gym_app.group_gym_trainer"/>
 
-        <menuitem name="Portal Management" id="menu_gym_portal_management" sequence="8"
+        <menuitem name="Portal Management" id="menu_gym_portal_management" sequence="6"
                   action="custom_gym_app.action_res_user_inheritance"
                   parent="custom_gym_app.menu_res_partner_inheritance"/>
 
-        <menuitem name="Employees" id="menu_gym_planning" sequence="9"
+        <menuitem name="Employees" id="menu_gym_planning" sequence="7"
                   action="hr.open_view_employee_list_my"
                   parent="custom_gym_app.menu_res_partner_inheritance"
                   groups="custom_gym_app.group_gym_manager"/>
