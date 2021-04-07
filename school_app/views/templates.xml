@@ -301,8 +301,8 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-12 s_website_form_field s_website_form_custom s_website_form_required" data-type="text" data-name="Field">
-                                    <div class="col-12" style="text-align:right;margin-right:15px;">
+                                <div style="padding-right:45px;" class="form-group col-12 s_website_form_field s_website_form_custom s_website_form_required" data-type="text" data-name="Field">
+                                    <div class="col-12" style="text-align:right;">
                                         <label>
                                             <span style="color:red;">
                                                 اولا: أن ألزم ابني (ابنتي) بما يلي
