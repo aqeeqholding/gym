@@ -1,0 +1,468 @@
+<odoo>
+    <data>
+        <template id="school_registration_page_template">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure"/>
+                    <div class="container">
+                        <h2 style="margin-left:15px;margin-top:25px;">School Registration</h2>
+                        <br/>
+                        <form role="form" action="/create/school/member" method="post">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="s_website_form_rows row s_col_no_bgcolor">
+                                <div class="row col-12 form-group s_website_form_field s_website_form_custom">
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor" style="text-align:right;">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="year">
+                                                <span class="s_website_form_mark"> *</span>
+                                                <span class="s_website_form_label_content">للعام الدراسي</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="number" name="year" placeholder="Year" t-att-value="year" id="year" class="form-control s_website_form_input" required=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor" style="text-align:right;">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="name">
+                                                <span class="s_website_form_mark"> *</span>
+                                                <span class="s_website_form_label_content">اسم الطالب ( الطالبة) رباعيا</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="text" name="name" placeholder="Student Name" t-att-value="name" id="name" class="form-control s_website_form_input" required=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-12 form-group s_website_form_field s_website_form_custom">
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor" style="text-align:right;">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="grade">
+                                                <span class="s_website_form_mark"> *</span>
+                                                <span class="s_website_form_label_content">المرحلة</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="text" name="grade" placeholder="Grade" t-att-value="grade" id="grade" class="form-control s_website_form_input" required=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor" style="text-align:right;">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="student_class">
+                                                <span class="s_website_form_mark"> *</span>
+                                                <span class="s_website_form_label_content">بالصف</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="text" name="student_class" placeholder="Student Class" t-att-value="student_class" id="student_class" class="form-control s_website_form_input"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-12 form-group s_website_form_field s_website_form_custom">
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor" style="text-align:right;">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="father_name">
+                                                <span class="s_website_form_mark"> *</span>
+                                                <span class="s_website_form_label_content">اسم ولي الامر</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="text" name="father_name" placeholder="Father Name" t-att-value="father_name" id="father_name" class="form-control s_website_form_input" required=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor" style="text-align:right;">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="semester">
+                                                <span class="s_website_form_mark"> *</span>
+                                                <span class="s_website_form_label_content">الفصل الدراسي</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <select class="form-control" name="semester" required="">
+                                                    <option> </option>
+                                                    <option t-attf-value="opt_1"><span>الفصل الدراسي الاول</span></option>
+                                                    <option t-attf-value="opt_2"><span>الفصل الدراسي الثاني</span></option>
+                                                    <option t-attf-value="opt_3"><span>الفصل الصيفي</span></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-12 form-group s_website_form_field s_website_form_custom">
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor" style="text-align:right;">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="student_birthday">
+                                                <span class="s_website_form_mark"> *</span>
+                                                <span class="s_website_form_label_content">تاريخ الميلاد</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="date" name="student_birthday" placeholder="Student Birthday" t-att-value="student_birthday" id="student_birthday" class="datetimepicker-input form-control" data-date-format="YYYY-MM-DD" required=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor" style="text-align:right;">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="birth_place">
+                                                <span class="s_website_form_mark"> *</span>
+                                                <span class="s_website_form_label_content">مكان الميلاد</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <select class="form-control" name="birth_place" required="">
+                                                    <option> </option>
+                                                    <t t-foreach="countries" t-as="nationality">
+                                                        <option t-attf-value="#{nationality.id}"><t t-esc="nationality.name"/></option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-12 form-group s_website_form_field s_website_form_custom">
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor" style="text-align:right;">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="id_date">
+                                                <span class="s_website_form_mark"> *</span>
+                                                <span class="s_website_form_label_content">تاريخها/ /14هـ</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="date" name="id_date" placeholder="ID Date" t-att-value="id_date" id="id_date" class="datetimepicker-input form-control" data-date-format="YYYY-MM-DD" required=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor" style="text-align:right;">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="student_id">
+                                                <span class="s_website_form_mark"> *</span>
+                                                <span class="s_website_form_label_content">رقم الهوية</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="number" name="student_id" placeholder="Student ID" t-att-value="student_id" id="student_id" class="form-control s_website_form_input"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-12 form-group s_website_form_field s_website_form_custom">
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor" style="text-align:right;">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="father_job">
+                                                <span class="s_website_form_mark"> *</span>
+                                                <span class="s_website_form_label_content">عمل ولي الامر</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="text" name="father_job" placeholder="Father Job" t-att-value="father_job" id="father_job" class="form-control s_website_form_input" required=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor" style="text-align:right;">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="id_resource">
+                                                <span class="s_website_form_mark"> *</span>
+                                                <span class="s_website_form_label_content">مصدرها</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="number" name="id_resource" placeholder="ID Resource" t-att-value="id_resource" id="id_resource" class="form-control s_website_form_input" required=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-12 form-group s_website_form_field s_website_form_custom">
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor" style="text-align:right;">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="work_place">
+                                                <span class="s_website_form_mark"> *</span>
+                                                <span class="s_website_form_label_content">مقر العمل</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="text" name="work_place" placeholder="Work Place" t-att-value="work_place" id="work_place" class="form-control s_website_form_input" required=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor" style="text-align:right;">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="phone">
+                                                <span class="s_website_form_mark"> *</span>
+                                                <span class="s_website_form_label_content">هاتف العمل</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="text" name="phone" placeholder="Phone" t-att-value="phone" id="phone" class="form-control s_website_form_input" required=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-12 form-group s_website_form_field s_website_form_custom">
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor" style="text-align:right;">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="mobile">
+                                                <span class="s_website_form_label_content">هاتف المنزل</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="text" name="mobile" placeholder="Mobile" t-att-value="mobile" id="mobile" class="form-control s_website_form_input"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor" style="text-align:right;">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="school_transferred_from">
+                                                <span class="s_website_form_label_content">المدرسة المحول ( المحولة منها)</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="text" name="school_transferred_from" placeholder="School Transferred From" t-att-value="school_transferred_from" id="school_transferred_from" class="form-control s_website_form_input"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-12 form-group s_website_form_field s_website_form_custom">
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor" style="text-align:right;">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="street">
+                                                <span class="s_website_form_mark"> *</span>
+                                                <span class="s_website_form_label_content">العنوان الوطني</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="text" name="street" placeholder="Home Address" t-att-value="street" id="street" class="form-control s_website_form_input" required=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor" style="text-align:right;">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="no_of_responsible">
+                                                <span class="s_website_form_mark"> *</span>
+                                                <span class="s_website_form_label_content">رقم جوال الوالد (ولي الامر)</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="text" name="no_of_responsible" placeholder="No Of Responsible" t-att-value="no_of_responsible" id="no_of_responsible" class="form-control s_website_form_input" required=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-12 form-group s_website_form_field s_website_form_custom">
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor" style="text-align:right;">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="street2">
+                                                <span class="s_website_form_label_content">الرقم</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="text" name="street2" placeholder="Street" t-att-value="street2" id="street2" class="form-control s_website_form_input"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor" style="text-align:right;">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="neighbourhood">
+                                                <span class="s_website_form_mark"> *</span>
+                                                <span class="s_website_form_label_content">الحي</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="text" name="neighbourhood" placeholder="Neighbourhood" t-att-value="neighbourhood" id="neighbourhood" class="form-control s_website_form_input" required=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-12 form-group s_website_form_field s_website_form_custom">
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor" style="text-align:right;">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="beside">
+                                                <span class="s_website_form_label_content">بجوار</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="text" name="beside" placeholder="Beside" t-att-value="beside" id="beside" class="form-control s_website_form_input"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor" style="text-align:right;">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="city">
+                                                <span class="s_website_form_label_content">شارع</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="text" name="city" placeholder="City" t-att-value="city" id="city" class="form-control s_website_form_input"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-12 s_website_form_field s_website_form_custom s_website_form_required" data-type="text" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor col-12">
+                                        <label class="col-form-label col-sm-auto s_website_form_label" for="terms_and_conditions">
+                                            <span class="s_website_form_label_content">Terms &amp; Conditions *</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="custom-control custom-checkbox">
+                                            <input required="" type="checkbox" class="custom-control-input" t-attf-id="terms_and_conditions"/>
+                                            <label class="custom-control-label" t-attf-for="terms_and_conditions">
+                                                <span style="color:red;">
+                                                    اولا: أن ألزم ابني (ابنتي) بما يلي
+                                                </span>
+                                                <br/><br/>
+                                                <span style="color:blue;">
+                                                    1) احترام ( المعلمين و المعلمات و الزملاء و الزميلات ) وجميع العامين بالمدارس ، وعدم الإساءة إليهم نهائيا
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    2) الحضور إلى المدارس ومغادرتها في المواعيد المحددة ، وعدم التاخر عن الطابور الصباحي أو التأخر وقت الإنصراف
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    3) ارتداء الزي المدرسي للمدارس يوميا ، ويمنع لبس العباءة الملونة ، و يسمح باللون الأسود فقط ( طالبات )
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    4) يمنع وضع المكياج للطالبات ، وعدم إطالة الأظافر ( طلاب و طالبات ) ، و عدم إطالة الشعر للطلاب ، وتمنع التقليعات الغربية ( قصات الشعر المتشبهه بالرجال ) للطالبات
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    5) المحافظة على الصلاة داخل المدراس وخارجها ، وعدم التهاون في تأديتها
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    6) المواظبة على الحضور و عدم الغياب إلا بعذر مقبول أو تقرير طبي
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    7) يُمنع منعا باتا إحضار الأدوات الحادة و القابلة للاشتعال ، وُ يمنع إحضار ساعات Apple ، مع التأكيد على الحفاظ على ممتلكات المدارس ونظافتها
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    8) المحافظة على الكتب و المقررات الدراسية ، وعدم إتلافها و ضياعها
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    9) إحضار الحقيبة المدرسية و الخطابات الموجهة إلى ولي الأمر بكل صدق و أمانه في وقتها
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    10) أداء الواجبات المدرسية يوميا
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    11) تسليم التقارير المدرسية و الخطابات الموجهة إلي الأمر بكل صدق و أمانه في وقتها
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    12) أداء الواجبات المدرسية يوميا
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    13) عدم الشغب و الضوضاء ، وعدم إضاعة زمن الحصة الدراسية دون جدوى
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    14) عدم إحضار علب و قوارير المشروبات الغازية و بعض المأكولات مثل ( الفصفص – اللبان )
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    15) عدم إحضار الجوالات الى مبنى المدارس
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    16) عدم إحضار أي نصوص أو صور فيديوهات أو أي أشياء أخرى مخلة بالآداب العامة بشكل مطبوع أو بشكل رقمي عدا الكتب و الأدوات المدرسية
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    17) يلتزم ولي الأمر بتزويد إدارة المدرسة بجميع التقيمات أو تقارير الطبية المتعلقة بالطالب ويتحمل ولي أمر الطالب تبعات عدم الكشف عن هذه المعلومات أو حجبها بشكل متعمد
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    18) يتعهد ولي أمر الطالب بتقديم إشعار خطي للمدرسة يوضح في حال معاناة الطالب أو أي من الأقرباء من لدرجة الأولى من أي صعوبات للتعلم و من حق المدرسة الغاء الهقد اذا ثبت عكس ذلك
+                                                </span><br/><br/>
+                                                <span style="color:red;">
+                                                    ثانيا: أن التزم شخصيا بالآتي
+                                                </span><br/><br/>
+                                                <span style="color:blue;">
+                                                    1) تسجيل ابني ( ابنتي ) للعام الدراسي كاملا ، وليس لفصل دراسي واحد ، الرسوم الدراسية كاملة
+                                                    <br/>
+                                                    للعام الدراسي وقدرها ريال
+                                                    <br/>
+                                                    فقط:...........................................
+                                                    <br/>
+                                                    و في حال استخدام باص المدارس يضاف ريال
+                                                    <br/>
+                                                    فقط:...........................................
+                                                    <br/>
+                                                    فيكون أجمالي الرسوم المدرسية مبلغ
+                                                    <br/>
+                                                    فقط:...........................................
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    2) عدفع الرسوم الدراسية المقررة على ابني ( ابنتي ) سنويا دفعة واحدة في بداية العام الدراسي ، وفي حالة موافقة المدارس على تجزئة الرسوم الدراسية فإن ذلك لا يلغي ماجاء في بنود دفع الرسوم الدراسية
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    3) في حالة انسحاب ابني ( ابنتي ) ، أو نقله ( نقلها ) أثناء العام الدراسي لأي سبب من الأسباب فإن الرسوم الدراسية غير قابلة للاسترداد قطعيا ، كما لا يمكن تحويلها إالى ططالب آخر ( طالبة اخرى )
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    4) دفع الرسوم الدراسية عن الفصل الدراسي الأول إذا انتقل ابني ( ابنتي ) في بداية الفصل الدراسي ولم أبلغ المدارس خطيا بخطاب النقل خلال اسبوع من بدء الدراسة
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    5) العقد يشمل قيمة الرسوم في حال تغيرها بالأعوام اللاحقة و التي توافق عليها و تقررها الشركة
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    6) التعهد بسداد كامل المبلغ على حسب ما تقتضيه سياسة الشركة
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    7) اوافق على حجز نتائج ابني ( ابنتي ) و الشهادة الدراسية إذا لم أسدد الرسوم كاملة قبل نهاية العام الدراسي
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    8) أوافق على حجز الملف الورقي و الالكتروني لابني ( ابنتي ) ، إذا لم أسدد السروم الدراسية كاملة قبل نهاية العام الدراسي
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    9) مرافقة ابني ( ابنتي ) إلى المدارس في حال التأخر عن الحضور مدة 30 دقيقة من بداية الطابور الصباحي للمدارس
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    10) إشعار المدارس عن أسباب غياب ابني ( ابنتي )
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    11) تعويض المدارس عن اي تلفيات متعمدة من ابني ( ابنتي ) لأثاث المدارس أو محتويات المعامل الموجودة بالمدارس أو أدوات الطلاب ( الطالبات ) أو تأمين البديل نفسه
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    12) حضور مجالس الآباء و المعلمين ( الأمهات و المعلمات ) و المناسبات المدرسية المختلفة
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    13) تزويد المدارس بالمعلومات الكافية في حال تغيير محل السكن أو العمل أو الهاتف ، و في حال تجديد الإقامة أو جواز السفر لغير السعوديين
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    14) عدم التأخر عن مراجعة المدارس حينما تطلب إدارة المدارس حضوري
+                                                </span><br/>
+                                                <span style="color:blue;">
+                                                    15) اي نشاط داخل المدرسة أو خارجها يحق للمدرسة تصويره صور ثابتة او متحركة ونشرها على صفحات التواصل الاجتماعي دون الحاجة لأخذ موافقة ولي الامر
+                                                </span><br/><br/>
+                                                <span style="color:red;">
+                                                    ثالثا: في حالة عدم التزام ابني ( ابنتي ) بما ورد في البند (أولا)، فإن للمدارس الحق في طلب نقله ( نقلها ) إلى مدرسة أخرى دون اعتراض مني على ذلك و اتعهد بتنفيذ هذا الطلب دون استرجاع الرسوم
+                                                </span><br/>
+                                                <span>
+                                                    وهذا إقرار مني و تعهد الموافقة على البنود السابقة وبناء عليه جرى التاكيد و الله الموفق.
+                                                </span><br/>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-12 s_website_form_submit" data-name="Submit Button" style="margin-left:35px;">
+                                    <input type="submit" value="Register" class="btn btn-primary"/>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="oe_structure"/>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <record id="school_registration_page" model="website.page">
+            <field name="name">School Registration</field>
+            <field name="website_published">True</field>
+            <field name="url">/school/registration</field>
+            <field name="view_id" ref="school_registration_page_template"/>
+        </record>
+
+        <record id="menu_school_registration" model="website.menu">
+            <field name="name">School Registration</field>
+            <field name="page_id" ref="school_registration_page"/>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">40</field>
+        </record>
+    </data>
+</odoo>

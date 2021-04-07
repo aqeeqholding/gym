@@ -1,5 +1,263 @@
 <odoo>
     <data>
+        <template id="member_registration_page_template">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure"/>
+                    <div class="container">
+                        <h2 style="margin-left:15px;margin-top:25px;">Member Registration</h2>
+                        <br/>
+                        <form role="form" action="/create/member" method="post">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="s_website_form_rows row s_col_no_bgcolor">
+                                <div class="row col-12 form-group s_website_form_field s_website_form_custom">
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="name">
+                                                <span class="s_website_form_label_content">Name</span>
+                                                <span class="s_website_form_mark"> *</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="text" name="name" t-att-value="name" id="name" class="form-control s_website_form_input" required=""/>
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="email">
+                                                <span class="s_website_form_label_content">Email</span>
+                                                <span class="s_website_form_mark"> *</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="email" name="email" t-att-value="email" id="email" class="form-control s_website_form_input" required=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-12 form-group s_website_form_field s_website_form_custom">
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="phone">
+                                                <span class="s_website_form_label_content">Phone</span>
+                                                <span class="s_website_form_mark"> *</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="text" name="phone" t-att-value="phone" id="phone" class="form-control s_website_form_input" required=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="birth_date">
+                                                <span class="s_website_form_label_content">Birth Date</span>
+                                                <span class="s_website_form_mark"> *</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="date" name="birth_date" t-att-value="birth_date" id="birth_date" class="datetimepicker-input form-control" data-date-format="YYYY-MM-DD" placeholder="YYYY-MM-DD" required=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-12 form-group s_website_form_field s_website_form_custom">
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="nationality">
+                                                <span class="s_website_form_label_content">Nationality</span>
+                                                <span class="s_website_form_mark"> *</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <select class="form-control" name="nationality" required="">
+                                                    <option> </option>
+                                                    <t t-foreach="countries" t-as="nationality">
+                                                        <option t-attf-value="#{nationality.id}"><t t-esc="nationality.name"/></option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="street">
+                                                <span class="s_website_form_label_content">Address</span>
+                                                <span class="s_website_form_mark"> *</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="text" name="street" t-att-value="street" id="street" class="form-control s_website_form_input" required=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-12 form-group s_website_form_field s_website_form_custom">
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="function">
+                                                <span class="s_website_form_label_content">Job Position</span>
+                                                <span class="s_website_form_mark"> *</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="text" name="function" t-att-value="function" id="function" class="form-control s_website_form_input" required=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="national_id">
+                                                <span class="s_website_form_label_content">National ID</span>
+                                                <span class="s_website_form_mark"> *</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="text" name="national_id" t-att-value="national_id" id="national_id" class="form-control s_website_form_input" required=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row col-12 form-group s_website_form_field s_website_form_custom">
+                                    <div class="form-group col-6 s_website_form_field s_website_form_custom" data-type="char" data-name="Field">
+                                        <div class="s_col_no_resize s_col_no_bgcolor">
+                                            <label class="col-form-label col-sm-auto s_website_form_label" for="member_selection">
+                                                <span class="s_website_form_label_content">Successful Partner</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <select class="form-control" name="member_selection">
+                                                    <option> </option>
+                                                    <option t-attf-value="arabic"><span>عضوية شركاء النجاح</span></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-12 s_website_form_submit" data-name="Submit Button" style="margin-left:15px;">
+                                    <input type="submit" value="Register" class="btn btn-primary"/>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="oe_structure"/>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <record id="member_registration_page" model="website.page">
+            <field name="name">Member Registration</field>
+            <field name="website_published">True</field>
+            <field name="url">/member_registration</field>
+            <field name="view_id" ref="member_registration_page_template"/>
+        </record>
+
+        <record id="menu_member_registration" model="website.menu">
+            <field name="name">Member Registration</field>
+            <field name="page_id" ref="member_registration_page"/>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">35</field>
+        </record>
+
+        <template id="product_quantity_inherit" inherit_id="website_sale.product_quantity" customize_show="True">
+            <xpath expr="//div[@class='css_quantity input-group']" position="replace">
+
+            </xpath>
+        </template>
+
+        <template id="cart_lines_inherit" inherit_id="website_sale.cart_lines" customize_show="True">
+            <xpath expr="//a[@class='btn btn-link js_add_cart_json d-none d-md-inline-block']" position="replace">
+
+            </xpath>
+            <xpath expr="//a[@class='btn btn-link float_left js_add_cart_json d-none d-md-inline-block']" position="replace">
+
+            </xpath>
+            <xpath expr="//input[@class='js_quantity form-control quantity']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+        </template>
+
+<!--        <template id="products_inherit" inherit_id="website_sale.products" customize_show="True">-->
+<!--            <xpath expr="//t[@t-if='td_product']" position="replace">-->
+<!--                <t t-if="td_product">-->
+<!--                    <t t-set="product" t-value="td_product['product']"/>-->
+<!--                    <t t-if="subscription_type == 'monthly'">-->
+<!--                        <t t-if="'Monthly' in product.name">-->
+<!--                            <td t-att-colspan="td_product['x'] != 1 and td_product['x']"-->
+<!--                                t-att-rowspan="td_product['y'] != 1 and td_product['y']"-->
+<!--                                t-attf-class="oe_product"-->
+<!--                                t-att-data-ribbon-id="td_product['ribbon'].id">-->
+<!--                                <div t-attf-class="o_wsale_product_grid_wrapper o_wsale_product_grid_wrapper_#{td_product['x']}_#{td_product['y']}">-->
+<!--                                    <t t-call="website_sale.products_item">-->
+<!--                                        <t t-set="product_image_big" t-value="td_product['x'] + td_product['y'] &gt; 2"/>-->
+<!--                                    </t>-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                        </t>-->
+<!--                    </t>-->
+<!--                    <t t-elif="subscription_type == 'yearly'">-->
+<!--                        <t t-if="'Yearly' in product.name">-->
+<!--                            <td t-att-colspan="td_product['x'] != 1 and td_product['x']"-->
+<!--                                t-att-rowspan="td_product['y'] != 1 and td_product['y']"-->
+<!--                                t-attf-class="oe_product"-->
+<!--                                t-att-data-ribbon-id="td_product['ribbon'].id">-->
+<!--                                <div t-attf-class="o_wsale_product_grid_wrapper o_wsale_product_grid_wrapper_#{td_product['x']}_#{td_product['y']}">-->
+<!--                                    <t t-call="website_sale.products_item">-->
+<!--                                        <t t-set="product_image_big" t-value="td_product['x'] + td_product['y'] &gt; 2"/>-->
+<!--                                    </t>-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                        </t>-->
+<!--                    </t>-->
+<!--                    <t t-elif="subscription_type == 'weekly'">-->
+<!--                        <t t-if="'Weekly' in product.name">-->
+<!--                            <td t-att-colspan="td_product['x'] != 1 and td_product['x']"-->
+<!--                                t-att-rowspan="td_product['y'] != 1 and td_product['y']"-->
+<!--                                t-attf-class="oe_product"-->
+<!--                                t-att-data-ribbon-id="td_product['ribbon'].id">-->
+<!--                                <div t-attf-class="o_wsale_product_grid_wrapper o_wsale_product_grid_wrapper_#{td_product['x']}_#{td_product['y']}">-->
+<!--                                    <t t-call="website_sale.products_item">-->
+<!--                                        <t t-set="product_image_big" t-value="td_product['x'] + td_product['y'] &gt; 2"/>-->
+<!--                                    </t>-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                        </t>-->
+<!--                    </t>-->
+<!--                    <t t-else="">-->
+<!--                        <td t-att-colspan="td_product['x'] != 1 and td_product['x']"-->
+<!--                            t-att-rowspan="td_product['y'] != 1 and td_product['y']"-->
+<!--                            t-attf-class="oe_product"-->
+<!--                            t-att-data-ribbon-id="td_product['ribbon'].id">-->
+<!--                            <div t-attf-class="o_wsale_product_grid_wrapper o_wsale_product_grid_wrapper_#{td_product['x']}_#{td_product['y']}">-->
+<!--                                <t t-call="website_sale.products_item">-->
+<!--                                    <t t-set="product_image_big" t-value="td_product['x'] + td_product['y'] &gt; 2"/>-->
+<!--                                </t>-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                    </t>-->
+<!--                </t>-->
+<!--            </xpath>-->
+<!--        </template>-->
+
+<!--        <template id="pricelist_list_inherit" inherit_id="website_sale.pricelist_list" customize_show="True">-->
+<!--            <xpath expr="//t[@t-set='website_sale_pricelists']" position="after">-->
+<!--                <div t-attf-class="dropdown#{'' if website_sale_pricelists and len(website_sale_pricelists)&gt;1 else ' d-none'} #{_classes}">-->
+<!--                    <t t-set="curr_pl" t-value="website.get_current_pricelist()"/>-->
+<!--                    <a role="button" href="#" class="dropdown-toggle btn btn-secondary" data-toggle="dropdown">-->
+<!--                        <span>Subscription Type</span>-->
+<!--                    </a>-->
+<!--                    <div class="dropdown-menu" role="menu">-->
+<!--                        <a role="menuitem" t-att-href="'/shop/subscription_type/%s' % 'monthly'" class="dropdown-item">-->
+<!--                            <span class="switcher_pricelist">Monthly Subscription</span>-->
+<!--                        </a>-->
+<!--                        <a role="menuitem" t-att-href="'/shop/subscription_type/%s' % 'yearly'" class="dropdown-item">-->
+<!--                            <span class="switcher_pricelist">Yearly Subscription</span>-->
+<!--                        </a>-->
+<!--                        <a role="menuitem" t-att-href="'/shop/subscription_type/%s' % 'weekly'" class="dropdown-item">-->
+<!--                            <span class="switcher_pricelist">Weekly Subscription</span>-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </xpath>-->
+<!--        </template>-->
     </data>
 </odoo>

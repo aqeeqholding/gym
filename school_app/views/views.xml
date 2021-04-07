@@ -1,0 +1,82 @@
+<odoo>
+    <data>
+        <record id="school_res_partner_form_inheritance" model="ir.ui.view">
+            <field name="name">res.partner.form.inherited</field>
+            <field name="model">res.partner</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="company_type" position="replace"/>
+
+                <xpath expr="//field[@name='type']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='parent_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='function']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='website']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='vat']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='title']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='category_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//span[@name='address_name']" position="replace">
+                     <span class="o_form_label o_td_label" name="address_name">
+                        <b>Student Address</b>
+                    </span>
+                </xpath>
+
+                <field name="name" position="attributes">
+                    <attribute name="placeholder">اسم الطالب ( الطالبة) رباعيا</attribute>
+                </field>
+
+                <xpath expr="//notebook[@colspan='4']" position="before">
+                    <group style="margin-top:-50px;">
+                        <group>
+                             <field name="student_class"/>
+                             <field name="student_id"/>
+                             <field name="father_job"/>
+                             <field name="school_transferred_from"/>
+                             <field name="no_of_responsible"/>
+                            <field name="year"/>
+                            <field name="semester"/>
+                            <field name="student_birthday"/>
+                        </group>
+
+                         <group>
+                            <field name="id_resource"/>
+                            <field name="work_place"/>
+                            <field name="neighbourhood"/>
+                            <field name="beside"/>
+                            <field name="grade"/>
+                            <field name="birth_place"/>
+                            <field name="id_date"/>
+                         </group>
+                    </group>
+                 </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_school_membership">
+            <field name="name">Members</field>
+            <field name="res_model">res.partner</field>
+            <field name="domain">[('school_member', '=', True)]</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'kanban'}), (0, 0, {'view_mode': 'tree'}), (0, 0, {'view_mode': 'form', 'view_id': ref('school_app.school_res_partner_form_inheritance')})]"/>
+        </record>
+
+        <menuitem name="Aqeeq School" id="menu_aqeeq_school" sequence="2" web_icon="school_app,static/description/logo.jpg"/>
+
+        <menuitem name="Members" id="menu_school_membership" sequence="1" action="school_app.action_school_membership" parent="school_app.menu_aqeeq_school"/>
+    </data>
+</odoo>
