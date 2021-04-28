@@ -1,4 +1,6 @@
 id,code,name,user_type_id/id,chart_template_id:id,reconcile
+1,1,الموجودات ,account.data_account_type_fixed_assets,account_arabic_coa_general,TRUE
+1,11,الموجودات الثابتة ,account.data_account_type_fixed_assets,account_arabic_coa_general,TRUE
 11001,11001,الاراضى ,account.data_account_type_fixed_assets,account_arabic_coa_general,TRUE
 11001001,11001001,ارض 1,account.data_account_type_fixed_assets,account_arabic_coa_general,TRUE
 11002,11002,المباني ,account.data_account_type_fixed_assets,account_arabic_coa_general,TRUE
