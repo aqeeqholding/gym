@@ -2,11 +2,11 @@
 <odoo>
     <!-- Chart Template -->
     <record id="account_arabic_coa_general" model="account.chart.template">
-        <field name="property_account_receivable_id" ref="12002"/>
-        <field name="property_account_payable_id" ref="41001"/>
-        <field name="property_account_income_categ_id" ref="41001"/>
-        <field name="property_account_income_id" ref="41001"/>
-        <field name="default_pos_receivable_account_id" ref="12002" />
+        <field name="property_account_receivable_id" ref="12002001"/>
+        <field name="property_account_payable_id" ref="22001001"/>
+        <field name="property_account_income_categ_id" ref="41001005"/>
+        <field name="property_account_income_id" ref="41001005"/>
+        <field name="default_pos_receivable_account_id" ref="41001005" />
         
         <!--<field name="property_account_expense_id" ref="12002" />
         
@@ -38,7 +38,7 @@
             (0,0, {
                 'factor_percent': 100,
                 'repartition_type': 'tax',
-                'account_id': ref('22010'),
+                'account_id': ref('12007001'),
             }),
         ]"/>
         <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
@@ -49,7 +49,7 @@
             (0,0, {
                 'factor_percent': 100,
                 'repartition_type': 'tax',
-                'account_id': ref('22010'),
+                'account_id': ref('12007001'),
             }),
         ]"/>
     </record>
@@ -71,7 +71,7 @@
             (0,0, {
                 'factor_percent': 100,
                 'repartition_type': 'tax',
-                'account_id': ref('12007'),
+                'account_id': ref('12007001'),
             }),
         ]"/>
         <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
@@ -82,7 +82,7 @@
             (0,0, {
                 'factor_percent': 100,
                 'repartition_type': 'tax',
-                'account_id': ref('12007'),
+                'account_id': ref('12007001'),
             }),
         ]"/>
     </record>
