@@ -3,7 +3,6 @@
 
 from odoo import api, SUPERUSER_ID
 
-
 def load_translations(cr, registry):
     env = api.Environment(cr, SUPERUSER_ID, {})
-    env.ref('aqeeq_accounts.account_arabic_coa_general').process_coa_translations()
+    env.ref('aqeeq_chart.account_arabic_coa_general').process_coa_translations()

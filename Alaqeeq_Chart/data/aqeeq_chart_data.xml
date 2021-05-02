@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Chart Template -->
+    <record id="account_arabic_coa_general" model="account.chart.template">
+        <field name="property_account_receivable_id" ref="12002001"/>
+        <field name="property_account_payable_id" ref="22001001"/>
+        <field name="property_account_income_categ_id" ref="41001005"/>
+        <field name="property_account_income_id" ref="41001005"/>
+        <field name="default_pos_receivable_account_id" ref="41001005" />
+        
+        <!--<field name="property_account_expense_id" ref="12002" />
+        
+        <field name="property_account_expense_catag_id" ref="12002" />
+        
+        <field name="income_currency_exchange_account_id" ref="12002" />
+        <field name="expense_currency_exchange_account_id" ref="12002" /> -->
+    </record>
+      <data noupdate="1">
+    <!-- Tax template for sale and purchase -->
+    <record id="tax_group_15" model="account.tax.group">
+        <field name="name">Tax 15%</field>
+    </record>
+    </data>
+
+    <record id="sale_tax15_template" model="account.tax.template">
+        <field name="chart_template_id" ref="account_arabic_coa_general"/>
+        <field name="name">Sales Tax 15%</field>
+        <field name="description">VAT15</field>
+        <field name="amount">15</field>
+        <field name="type_tax_use">sale</field>
+        <field name="tax_group_id" ref="tax_group_15"/>
+        <field name="active" eval="True"/>
+        <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('12007001'),
+            }),
+        ]"/>
+        <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('12007001'),
+            }),
+        ]"/>
+    </record>
+
+
+   <record id="purchase_tax15_template" model="account.tax.template">
+        <field name="chart_template_id" ref="account_arabic_coa_general"/>
+        <field name="name">Purchase Tax 15%</field>
+       <field name="description">VATP15</field>
+        <field name="amount">15</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="tax_group_id" ref="tax_group_15"/>
+       <field name="active" eval="True"/>
+        <field name="invoice_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('12007001'),
+            }),
+        ]"/>
+        <field name="refund_repartition_line_ids" eval="[(5, 0, 0),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'base',
+            }),
+            (0,0, {
+                'factor_percent': 100,
+                'repartition_type': 'tax',
+                'account_id': ref('12007001'),
+            }),
+        ]"/>
+    </record>
+
+</odoo>
