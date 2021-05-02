@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_arabic_coa_general" model="account.chart.template">
+        <field name="property_account_receivable_id" ref="12002001_account_id"/>
+        <field name="property_account_payable_id" ref="22001001_account_id"/>
+        <field name="property_account_expense_categ_id" ref="31015_account_id"/>
+        <field name="property_account_income_categ_id" ref="41001_account_id"/>
+        <field name="property_account_expense_id" ref="3105002_account_id"/>
+        <field name="property_account_income_id" ref="41001005_account_id"/>
+    </record>
+</odoo>
