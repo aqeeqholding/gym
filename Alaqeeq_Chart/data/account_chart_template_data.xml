@@ -2,10 +2,10 @@
 <odoo>
         <record id="account_arabic_coa_general" model="account.chart.template">
             <field name="name">Chart of Accounts</field>
-            <field name="bank_account_code_prefix">50</field>
-            <field name="cash_account_code_prefix">51</field>
-            <field name="transfer_account_code_prefix">52</field>
-            <field name="code_digits">6</field>
+            <field name="bank_account_code_prefix">12001001</field>
+            <field name="cash_account_code_prefix">12002001</field>
+            <field name="transfer_account_code_prefix">12001001</field>
+            <!--<field name="code_digits">6</field>-->
             <field name="currency_id" ref="base.SAR"/>
             <field name="spoken_languages" eval="'en_US;ar_YE;ar_SY;ar_001'"/>
         </record>
